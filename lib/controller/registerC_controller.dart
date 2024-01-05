@@ -7,22 +7,26 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool passwordValidator = true;
   setTextField() async {
     try {
-     
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
       Get.snackbar("Successful", "Register is Successful");
     } on FirebaseAuthException catch (e) {
-     
       Get.snackbar("Error", e.message.toString());
-      
     }
 
     emailController.clear();
     passwordController.clear();
+    update();
+  }
+
+  setPasswordValidator() {
+    passwordValidator = !passwordValidator;
+
     update();
   }
 }

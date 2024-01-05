@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool passwordValidator = true;
   setTextField() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -20,6 +21,13 @@ class LoginController extends GetxController {
 
     emailController.clear();
     passwordController.clear();
+    update();
+  }
+    
+
+  setPasswordValidator() {
+    passwordValidator = !passwordValidator;
+
     update();
   }
 }
