@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay/controller/login_controller.dart';
-import 'package:pay/controller/password_controller.dart';
+
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
 import 'package:pay/views/authentication/register_view.dart';
