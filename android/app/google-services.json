@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "889071847183",
+    "firebase_url": "https://payapp-23878-default-rtdb.firebaseio.com",
+    "project_id": "payapp-23878",
+    "storage_bucket": "payapp-23878.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889071847183:android:ae2e5ccb05b9ee764c207a",
+        "android_client_info": {
+          "package_name": "com.example.pay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkfMj6Ji7snfxKBgnpKWWefSIyqBw83VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
