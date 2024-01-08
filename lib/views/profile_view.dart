@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/profile_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/widgets/custom_button.dart';
@@ -11,7 +8,7 @@ import 'package:pay/widgets/custom_textfromfield.dart';
 class ProfileView extends GetView<ProfileController> {
   ProfileView({super.key});
   final forky = GlobalKey<FormState>();
-  ProfileController profileController = Get.put(ProfileController());
+  final ProfileController profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
