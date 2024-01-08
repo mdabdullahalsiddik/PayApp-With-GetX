@@ -31,7 +31,6 @@ class ProfileController extends GetxController {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       final tempImage = File(image!.path);
       pickedImage = tempImage;
-      Get.snackbar("Successful", "Login is Successful");
     } catch (e) {
       print(e);
     }
@@ -55,11 +54,7 @@ class ProfileController extends GetxController {
   setProfile() {
     FirebaseAllFunction.firestore
         .collection("user")
-        .doc(
-          FirebaseAllFunction.auth.currentUser!.email
-              .toString()
-              .replaceAll('.', ''),
-        )
+        .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
         .set({
       "name": nameController.text,
       "phone": phoneController.text,
@@ -70,7 +65,7 @@ class ProfileController extends GetxController {
       "balance": 2000,
     });
     Get.offAll(HomeView());
-    Get.snackbar("Successful", "Login is Successful");
+    Get.snackbar("Successful", "Account set is successful");
     update();
   }
 }
