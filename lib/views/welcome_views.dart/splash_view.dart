@@ -4,6 +4,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/views/home_view.dart';
+import 'package:pay/views/navigator/bottom_navigator.dart';
 import 'package:pay/views/welcome_views.dart/welcome_view.dart';
 
 class SplashView extends StatelessWidget {
@@ -15,7 +16,7 @@ class SplashView extends StatelessWidget {
       FirebaseAllFunction.auth.currentUser == null
           ? Get.to(const WelcomeView())
           : Get.to(
-              HomeView(),
+              const BottomNavigatorView(),
             );
     });
 

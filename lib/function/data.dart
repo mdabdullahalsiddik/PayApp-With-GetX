@@ -1,0 +1,2 @@
+String? senderMail;
+String? receiverMail;

@@ -4,7 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/function/firebase_function.dart';
-import 'package:pay/views/home_view.dart';
+import 'package:pay/views/navigator/bottom_navigator.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -16,7 +16,7 @@ class LoginController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-      Get.offAll(HomeView());
+      Get.offAll(const BottomNavigatorView());
       Get.snackbar("Successful", "Login is Successful");
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.message.toString());
