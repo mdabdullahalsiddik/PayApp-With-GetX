@@ -6,7 +6,6 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/send_money_controller.dart';
 import 'package:pay/function/data.dart';
 import 'package:pay/function/firebase_function.dart';
-import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
@@ -67,11 +66,29 @@ class SendMoneyView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          CustomTextFromField(
-                            controller: sendMoneyController.amountController,
-                            hintText: "Amount",
-                            keyboardType: TextInputType.number,
+                          Form(
+                            key: sendMoneyController.forky,
+                            child: CustomTextFromField(
+                              controller: sendMoneyController.amountController,
+                              hintText: "Amount",
+                              keyboardType: TextInputType.number,
+                            ),
                           ),
+                          StreamBuilder(
+                            stream: FirebaseAllFunction.firestore
+                                .collection("user")
+                                .doc(FirebaseAllFunction.auth.currentUser!.email
+                                    .toString())
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var data1 = snapshot.data!.data()!;
+                                return Text(
+                                    "Available Balance: ${data1['balance']}");
+                              }
+                              return const CircularProgressIndicator();
+                            },
+                          )
                         ],
                       ),
                       CustomButton(

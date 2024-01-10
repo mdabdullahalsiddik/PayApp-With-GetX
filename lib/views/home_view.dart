@@ -148,6 +148,7 @@ class HomeView extends StatelessWidget {
                               icon: Icons.send,
                             ),
                             CustomMaunBottom(
+                              onTap: () => homeController.addMoney(),
                               size: size,
                               text: "Add Money",
                               icon: Icons.add,

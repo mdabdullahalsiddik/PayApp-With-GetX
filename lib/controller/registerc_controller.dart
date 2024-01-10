@@ -11,9 +11,11 @@ import 'package:pay/views/profile_view.dart';
 class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var forky = GlobalKey<FormState>();
   bool passwordValidator = true;
   setTextField() async {
-    try {
+    if(forky.currentState!.validate()){
+      try {
       await FirebaseAllFunction.auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
@@ -27,6 +29,7 @@ class RegisterController extends GetxController {
     emailController.clear();
     passwordController.clear();
     update();
+    }
   }
 
   setPasswordValidator() {

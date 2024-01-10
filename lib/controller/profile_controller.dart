@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pay/function/firebase_function.dart';
-import 'package:pay/views/home_view.dart';
 import 'package:pay/views/navigator/bottom_navigator.dart';
 
 class ProfileController extends GetxController {
@@ -13,6 +11,7 @@ class ProfileController extends GetxController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController nidController = TextEditingController();
   TextEditingController birthController = TextEditingController();
+  var forky = GlobalKey<FormState>();
   File? pickedImage;
   String? images;
   cameraPickImage() async {
@@ -51,7 +50,8 @@ class ProfileController extends GetxController {
   }
 
   setProfile() async {
-    await FirebaseAllFunction.firestore
+  if(forky.currentState!.validate()){
+      await FirebaseAllFunction.firestore
         .collection("user")
         .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
         .set({
@@ -67,5 +67,6 @@ class ProfileController extends GetxController {
     Get.offAll(const BottomNavigatorView());
     Get.snackbar("Successful", "Account set is successful");
     update();
+  }
   }
 }

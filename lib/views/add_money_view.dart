@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:pay/controller/send_account_controller.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:pay/controller/add_money_controller.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
-class SendAccountView extends StatelessWidget {
-  SendAccountView({super.key});
-  final SendAccountController sendAccountController =
-      Get.put(SendAccountController());
+class AddMoneyView extends StatelessWidget {
+   AddMoneyView({super.key});
+  final AddMoneyController addMoneyController = Get.put(AddMoneyController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => sendAccountController.setBack(),
+          onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: GetBuilder<SendAccountController>(
+      body: GetBuilder<AddMoneyController>(
         builder: (controller) {
           return Padding(
             padding: const EdgeInsets.symmetric(
@@ -31,22 +31,22 @@ class SendAccountView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Form(
-                  key: sendAccountController.forky,
+                  key:addMoneyController.forky ,
                   child: CustomTextFromField(
-                    controller: sendAccountController.mailController,
-                    hintText: "Enter account number",
+                    controller: addMoneyController.addMoneyController,
+                    hintText: "Enter Money",
                     validator: (p0) {
                       if (p0!.isEmpty) {
-                        return "Number can't be empty";
+                        return "Money can't be empty";
                       }
                       return null;
                     },
                   ),
                 ),
                 CustomButton(
-                  text: "Next",
+                  text: "Add Money",
                   onTap: () {
-                    sendAccountController.setData();
+                    addMoneyController.addMoney();
                   },
                 )
               ],

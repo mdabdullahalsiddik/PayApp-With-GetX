@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay/controller/registerC_controller.dart';
+import 'package:pay/controller/registerc_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
 import 'package:pay/views/authentication/login_view.dart';
@@ -11,9 +11,8 @@ import 'package:pay/widgets/custom_textfromfield.dart';
 class RegisterView extends StatelessWidget {
   RegisterView({super.key});
 
-  
   final registerController = Get.put(RegisterController());
-  final forky = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,7 +47,7 @@ class RegisterView extends StatelessWidget {
                             ),
                           ),
                           Form(
-                            key: forky,
+                            key: registerController.forky,
                             child: Column(
                               children: [
                                 CustomTextFromField(
@@ -101,9 +100,7 @@ class RegisterView extends StatelessWidget {
                           CustomButton(
                             text: "Register",
                             onTap: () {
-                              if (forky.currentState!.validate()) {
-                                registerController.setTextField();
-                              }
+                              registerController.setTextField();
                             },
                           ),
                         ],

@@ -3,6 +3,7 @@
         "easyloading",
         "Firestore",
         "Getx",
+        "manu",
         "textfromfield"
     ]
 }

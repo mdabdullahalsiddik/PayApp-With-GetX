@@ -11,11 +11,9 @@ import 'package:pay/widgets/custom_textfromfield.dart';
 // ignore: must_be_immutable, camel_case_types
 class loginView extends StatelessWidget {
   loginView({super.key});
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  // PasswordController passController = Get.put(PasswordController());
+
   LoginController loginController = Get.put(LoginController());
-  var forky = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +47,7 @@ class loginView extends StatelessWidget {
                           ),
                         ),
                         Form(
-                          key: forky,
+                          key: loginController.forky,
                           child: Column(
                             children: [
                               CustomTextFromField(
@@ -98,9 +96,7 @@ class loginView extends StatelessWidget {
                         CustomButton(
                           text: "Login",
                           onTap: () {
-                            if (forky.currentState!.validate()) {
-                              loginController.setTextField();
-                            }
+                            loginController.setTextField();
                           },
                         ),
                       ],

@@ -36,6 +36,10 @@ class CustomMaunBottom extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Icon(
+              icon,
+              color: AllColors.whiteColor,
+            ),
             Text(
               text,
               style: const TextStyle(
@@ -44,10 +48,6 @@ class CustomMaunBottom extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            Icon(
-              icon,
-              color: AllColors.whiteColor,
-            )
           ],
         ),
       ),
