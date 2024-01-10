@@ -8,7 +8,7 @@ import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
 class AddMoneyView extends StatelessWidget {
-   AddMoneyView({super.key});
+  AddMoneyView({super.key});
   final AddMoneyController addMoneyController = Get.put(AddMoneyController());
 
   @override
@@ -31,8 +31,9 @@ class AddMoneyView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Form(
-                  key:addMoneyController.forky ,
+                  key: addMoneyController.forky,
                   child: CustomTextFromField(
+                    keyboardType: TextInputType.number,
                     controller: addMoneyController.addMoneyController,
                     hintText: "Enter Money",
                     validator: (p0) {

@@ -18,6 +18,12 @@ class LoginController extends GetxController {
           email: emailController.text,
           password: passwordController.text,
         );
+        await FirebaseAllFunction.firestore
+            .collection("user")
+            .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+            .update({
+          "token": await FirebaseAllFunction.messaging.getToken(),
+        });
         Get.offAll(const BottomNavigatorView());
         Get.snackbar("Successful", "Login is Successful");
       } on FirebaseAuthException catch (e) {

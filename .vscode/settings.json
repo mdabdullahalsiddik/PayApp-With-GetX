@@ -3,7 +3,9 @@
         "easyloading",
         "Firestore",
         "Getx",
+        "hdpi",
         "manu",
+        "mipmap",
         "textfromfield"
     ]
 }

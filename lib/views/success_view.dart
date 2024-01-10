@@ -71,7 +71,7 @@ class SuccessView extends StatelessWidget {
                         ),
                       ),
                       trailing: Text(
-                        " $sendMoney",
+                        " $sendMoney Taka",
                         style: const TextStyle(
                           color: AllColors.greenColor,
                           fontWeight: FontWeight.bold,

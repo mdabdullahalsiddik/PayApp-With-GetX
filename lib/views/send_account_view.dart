@@ -34,10 +34,10 @@ class SendAccountView extends StatelessWidget {
                   key: sendAccountController.forky,
                   child: CustomTextFromField(
                     controller: sendAccountController.mailController,
-                    hintText: "Enter account number",
+                    hintText: "Enter account mail",
                     validator: (p0) {
                       if (p0!.isEmpty) {
-                        return "Number can't be empty";
+                        return "Mail can't be empty";
                       }
                       return null;
                     },

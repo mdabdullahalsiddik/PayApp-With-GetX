@@ -72,6 +72,12 @@ class SendMoneyView extends StatelessWidget {
                               controller: sendMoneyController.amountController,
                               hintText: "Amount",
                               keyboardType: TextInputType.number,
+                              validator: (p0) {
+                                if (p0!.isEmpty) {
+                                  return "Amount can't be empty";
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           StreamBuilder(
