@@ -11,6 +11,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     Future.delayed(const Duration(seconds: 5)).then((value) {
       
       FirebaseAllFunction.auth.currentUser == null
