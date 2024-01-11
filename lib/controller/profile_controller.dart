@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, duplicate_ignore
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -20,6 +22,7 @@ class ProfileController extends GetxController {
       final tempImage = File(image!.path);
       pickedImage = tempImage;
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }
@@ -61,7 +64,7 @@ class ProfileController extends GetxController {
       "birthday": birthController.text,
       "mail": FirebaseAllFunction.auth.currentUser!.email,
       "image": images,
-      "balance": 2000,
+      "balance": 0,
       "token": await FirebaseAllFunction.messaging.getToken(),
     });
     Get.offAll(const BottomNavigatorView());

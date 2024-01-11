@@ -11,7 +11,9 @@ class AddMoneyController extends GetxController {
   var forky = GlobalKey<FormState>();
   int? money;
   int? senderAmount;
+  // ignore: prefer_typing_uninitialized_variables
   var senderToken;
+  // ignore: prefer_typing_uninitialized_variables
   var senderImage;
   String? senderName;
   addMoney() async {
@@ -43,7 +45,7 @@ class AddMoneyController extends GetxController {
         "date": DateTime.now().toString(),
         "receiver_image": "",
         "receiver_name": "",
-        "sender": "",
+        "sender": "Add Money",
         "sender_image": senderImage,
         "sender_name": senderName,
       });

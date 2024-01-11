@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pay/controller/registerc_controller.dart';
+import 'package:pay/controller/register_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
 import 'package:pay/views/authentication/login_view.dart';

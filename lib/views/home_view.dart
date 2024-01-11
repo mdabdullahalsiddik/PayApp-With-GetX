@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -222,16 +224,23 @@ class HomeView extends StatelessWidget {
                                             fontSize: 20,
                                           ),
                                         ),
-                                        trailing: Text(
-                                          "${data["amount"].toString()} Taka",
-                                          style: TextStyle(
-                                            color: isMeReceiver
-                                                ? AllColors.greenColor
-                                                : AllColors.redColor,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
-                                        ),
+                                        trailing: isMeReceiver
+                                            ? Text(
+                                                "+ ${data["amount"].toString()} Taka",
+                                                style: const TextStyle(
+                                                  color: AllColors.greenColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              )
+                                            : Text(
+                                                "- ${data["amount"].toString()} Taka",
+                                                style: const TextStyle(
+                                                  color: AllColors.redColor,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
                                       )
                                     : const SizedBox();
                               },

@@ -33,77 +33,83 @@ class SendMoneyView extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   var data = snapshot.data!.data()!;
-                  return Column(
-                    children: [
-                      Column(
-                        children: [
-                          ListTile(
-                            leading: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(data["image"].toString()),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(50),
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              data["name"].toString(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                            subtitle: Text(
-                              data["mail"].toString(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 15,
                           ),
-                          Form(
-                            key: sendMoneyController.forky,
-                            child: CustomTextFromField(
-                              controller: sendMoneyController.amountController,
-                              hintText: "Amount",
-                              keyboardType: TextInputType.number,
-                              validator: (p0) {
-                                if (p0!.isEmpty) {
-                                  return "Amount can't be empty";
+                    child: Column(
+                      children: [
+                        Column(
+                          children: [
+                            ListTile(
+                              leading: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(data["image"].toString()),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(50),
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                data["name"].toString(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              subtitle: Text(
+                                data["mail"].toString(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            Form(
+                              key: sendMoneyController.forky,
+                              child: CustomTextFromField(
+                                controller: sendMoneyController.amountController,
+                                hintText: "Amount",
+                                keyboardType: TextInputType.number,
+                                validator: (p0) {
+                                  if (p0!.isEmpty) {
+                                    return "Amount can't be empty";
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            StreamBuilder(
+                              stream: FirebaseAllFunction.firestore
+                                  .collection("user")
+                                  .doc(FirebaseAllFunction.auth.currentUser!.email
+                                      .toString())
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var data1 = snapshot.data!.data()!;
+                                  return Text(
+                                      "Available Balance: ${data1['balance']}");
                                 }
-                                return null;
+                                return const CircularProgressIndicator();
                               },
-                            ),
-                          ),
-                          StreamBuilder(
-                            stream: FirebaseAllFunction.firestore
-                                .collection("user")
-                                .doc(FirebaseAllFunction.auth.currentUser!.email
-                                    .toString())
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var data1 = snapshot.data!.data()!;
-                                return Text(
-                                    "Available Balance: ${data1['balance']}");
-                              }
-                              return const CircularProgressIndicator();
-                            },
-                          )
-                        ],
-                      ),
-                      CustomButton(
-                        text: "Send",
-                        onTap: () {
-                          sendMoneyController.setSend();
-                        },
-                      )
-                    ],
+                            )
+                          ],
+                        ),
+                        CustomButton(
+                          text: "Send",
+                          onTap: () {
+                            sendMoneyController.setSend();
+                          },
+                        )
+                      ],
+                    ),
                   );
                 }
                 return const Center(child: CircularProgressIndicator());
