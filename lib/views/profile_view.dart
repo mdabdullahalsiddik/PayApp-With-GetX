@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/profile_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/widgets/custom_button.dart';
@@ -13,6 +14,7 @@ class ProfileView extends GetView<ProfileController> {
   ProfileView({super.key});
 
   final ProfileController profileController = Get.put(ProfileController());
+  final InternetController internetController = Get.put(InternetController());
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);

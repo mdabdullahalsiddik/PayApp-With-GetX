@@ -39,7 +39,7 @@ class _InternetCheckState extends State<InternetCheck> {
 
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
-      Get.to(const SplashView());
+      Get.to(SplashView());
     } else {
       Get.defaultDialog(
         title: "No Internet",
@@ -49,7 +49,7 @@ class _InternetCheckState extends State<InternetCheck> {
           exit(0);
         },
         onCancel: () {
-          internetCheck();
+           internetCheck();
         },
       );
     }

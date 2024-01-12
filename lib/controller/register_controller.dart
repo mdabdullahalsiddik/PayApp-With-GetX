@@ -14,21 +14,21 @@ class RegisterController extends GetxController {
   var forky = GlobalKey<FormState>();
   bool passwordValidator = true;
   setTextField() async {
-    if(forky.currentState!.validate()){
+    if (forky.currentState!.validate()) {
       try {
-      await FirebaseAllFunction.auth.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      Get.offAll(ProfileView());
-      Get.snackbar("Successful", "Register is Successful");
-    } on FirebaseAuthException catch (e) {
-      Get.snackbar("Error", e.message.toString());
-    }
+        await FirebaseAllFunction.auth.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        Get.offAll(ProfileView());
+        Get.snackbar("Successful", "Register is Successful");
+      } on FirebaseAuthException catch (e) {
+        Get.snackbar("Error", e.message.toString());
+      }
 
-    emailController.clear();
-    passwordController.clear();
-    update();
+      emailController.clear();
+      passwordController.clear();
+      update();
     }
   }
 

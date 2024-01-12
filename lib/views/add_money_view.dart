@@ -4,12 +4,14 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:pay/controller/add_money_controller.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
 class AddMoneyView extends StatelessWidget {
   AddMoneyView({super.key});
   final AddMoneyController addMoneyController = Get.put(AddMoneyController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {

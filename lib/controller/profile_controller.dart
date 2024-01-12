@@ -44,7 +44,7 @@ class ProfileController extends GetxController {
     var imagePath = await FirebaseAllFunction.storage
         .ref("user")
         .child(
-          "${FirebaseAllFunction.auth.currentUser!.email.toString().replaceAll('.', '')}_${dataKye.toString()}",
+          "${FirebaseAllFunction.user.replaceAll('.', '')}_${dataKye.toString()}",
         )
         .putFile(pickedImage!);
 
@@ -53,23 +53,23 @@ class ProfileController extends GetxController {
   }
 
   setProfile() async {
-  if(forky.currentState!.validate()){
+    if (forky.currentState!.validate()) {
       await FirebaseAllFunction.firestore
-        .collection("user")
-        .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
-        .set({
-      "name": nameController.text,
-      "phone": phoneController.text,
-      "nid": nidController.text,
-      "birthday": birthController.text,
-      "mail": FirebaseAllFunction.auth.currentUser!.email,
-      "image": images,
-      "balance": 0,
-      "token": await FirebaseAllFunction.messaging.getToken(),
-    });
-    Get.offAll(const BottomNavigatorView());
-    Get.snackbar("Successful", "Account set is successful");
-    update();
-  }
+          .collection("user")
+          .doc(FirebaseAllFunction.user)
+          .set({
+        "name": nameController.text,
+        "phone": phoneController.text,
+        "nid": nidController.text,
+        "birthday": birthController.text,
+        "mail": FirebaseAllFunction.user,
+        "image": images,
+        "balance": 0,
+        "token": await FirebaseAllFunction.messaging.getToken(),
+      });
+      Get.offAll(const BottomNavigatorView());
+      Get.snackbar("Successful", "Account set is successful");
+      update();
+    }
   }
 }

@@ -5,12 +5,14 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/account_controller.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/widgets/custom_list_tile.dart';
 
 class AccountView extends StatelessWidget {
   AccountView({super.key});
   final AccountController accountController = Get.put(AccountController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +27,7 @@ class AccountView extends StatelessWidget {
           height: size.height,
           width: size.width,
           child: StreamBuilder(
-            stream: FirebaseAllFunction.firestore
-                .collection("user")
-                .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
-                .snapshots(),
+            stream: FirebaseAllFunction.userCollection.snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var data = snapshot.data!.data()!;

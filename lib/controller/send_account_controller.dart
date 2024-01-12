@@ -25,11 +25,10 @@ class SendAccountController extends GetxController {
         mail = value.data()!["mail"].toString();
       });
 
-      if (mailController.text !=
-          FirebaseAllFunction.auth.currentUser!.email.toString()) {
+      if (mailController.text != FirebaseAllFunction.user) {
         if (mailController.text == mail) {
           receiverMail = mail;
-          senderMail = FirebaseAllFunction.auth.currentUser!.email.toString();
+          senderMail = FirebaseAllFunction.user;
           Get.to(SendMoneyView());
           mailController.clear();
         }

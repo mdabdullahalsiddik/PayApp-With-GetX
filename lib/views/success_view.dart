@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/function/data.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
@@ -10,7 +12,8 @@ import 'package:pay/views/navigator/bottom_navigator.dart';
 import 'package:pay/widgets/custom_button.dart';
 
 class SuccessView extends StatelessWidget {
-  const SuccessView({super.key});
+   SuccessView({super.key});
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,8 @@ class SuccessView extends StatelessWidget {
       },
       child: Scaffold(
         body: StreamBuilder(
-          stream: FirebaseAllFunction.firestore
-              .collection("user")
-              .doc(receiverMail)
-              .snapshots(),
+          stream:
+              FirebaseAllFunction.firestore.collection("user").doc(receiverMail).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = snapshot.data!.data()!;

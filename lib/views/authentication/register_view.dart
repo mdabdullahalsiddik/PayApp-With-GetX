@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/register_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
@@ -12,6 +13,7 @@ class RegisterView extends StatelessWidget {
   RegisterView({super.key});
 
   final registerController = Get.put(RegisterController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {

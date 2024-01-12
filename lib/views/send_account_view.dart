@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/send_account_controller.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
@@ -10,6 +11,7 @@ class SendAccountView extends StatelessWidget {
   SendAccountView({super.key});
   final SendAccountController sendAccountController =
       Get.put(SendAccountController());
+      final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {

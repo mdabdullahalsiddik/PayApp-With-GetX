@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pay/function/firebase_function.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pay/controller/internet_controller.dart';
+import 'package:pay/controller/splash_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
-import 'package:pay/views/navigator/bottom_navigator.dart';
-import 'package:pay/views/welcome_views.dart/welcome_view.dart';
 
-class SplashView extends StatelessWidget {
-  const SplashView({super.key});
+class SplashView extends GetView<SplashController> {
+   SplashView({super.key});
+  final SplashController splashController = Get.put(SplashController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
-    
-    Future.delayed(const Duration(seconds: 5)).then((value) {
-      
-      FirebaseAllFunction.auth.currentUser == null
-          ? Get.to(const WelcomeView())
-          : Get.to(
-              const BottomNavigatorView(),
-            );
-    });
-
     return Scaffold(
       backgroundColor: AllColors.primaryColor,
       body: Center(

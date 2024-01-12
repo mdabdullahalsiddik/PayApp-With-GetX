@@ -19,20 +19,13 @@ class AddMoneyController extends GetxController {
   addMoney() async {
     if (forky.currentState!.validate()) {
       money = int.parse(addMoneyController.text);
-      await FirebaseAllFunction.firestore
-          .collection("user")
-          .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
-          .get()
-          .then((value) {
+      await FirebaseAllFunction.userCollection.get().then((value) {
         senderAmount = value.data()!["balance"];
         senderToken = value.data()!["token"];
         senderImage = value.data()!["image"];
         senderName = value.data()!["name"];
       });
-      await FirebaseAllFunction.firestore
-          .collection("user")
-          .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
-          .update({
+      await FirebaseAllFunction.userCollection.update({
         "balance": money! + senderAmount!,
       });
       await NotificationApi().triggerNotification(

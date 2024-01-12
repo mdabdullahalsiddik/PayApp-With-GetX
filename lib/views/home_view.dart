@@ -8,6 +8,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/home_controller.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/widgets/custom_manu_bottom.dart';
@@ -16,6 +17,7 @@ class HomeView extends StatelessWidget {
   HomeView({super.key});
 
   final homeController = Get.put(HomeController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +42,7 @@ class HomeView extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
               drawer: StreamBuilder(
-                stream: FirebaseAllFunction.firestore
-                    .collection("user")
-                    .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+                stream: FirebaseAllFunction.userCollection
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -61,8 +61,7 @@ class HomeView extends StatelessWidget {
                             ),
                             accountName: Text(data["name"].toString()),
                             accountEmail: Text(
-                              FirebaseAllFunction.auth.currentUser!.email
-                                  .toString(),
+                              FirebaseAllFunction.user,
                             ),
                           ),
                           InkWell(
@@ -105,10 +104,7 @@ class HomeView extends StatelessWidget {
                 ],
               ),
               body: StreamBuilder(
-                stream: FirebaseAllFunction.firestore
-                    .collection("user")
-                    .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
-                    .snapshots(),
+                stream: FirebaseAllFunction.userCollection.snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -164,8 +160,8 @@ class HomeView extends StatelessWidget {
                             horizontal: 10,
                             vertical: 10,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          child: Wrap(
+                            spacing: 10,
                             children: [
                               CustomMaunBottom(
                                 onTap: () => homeController.sendAccount(),
@@ -184,9 +180,7 @@ class HomeView extends StatelessWidget {
                         ),
                         Expanded(
                             child: StreamBuilder(
-                          stream: FirebaseAllFunction.firestore
-                              .collection("history")
-                              .snapshots(),
+                          stream: FirebaseAllFunction.historyStream,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return ListView.builder(
@@ -196,13 +190,9 @@ class HomeView extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   var data = snapshot.data!.docs[index];
                                   bool isMeSender = data["sender"] ==
-                                      FirebaseAllFunction
-                                          .auth.currentUser!.email
-                                          .toString();
+                                      FirebaseAllFunction.user;
                                   bool isMeReceiver = data["receiver"] ==
-                                      FirebaseAllFunction
-                                          .auth.currentUser!.email
-                                          .toString();
+                                      FirebaseAllFunction.user;
                                   return isMeSender || isMeReceiver
                                       ? ListTile(
                                           leading: Container(

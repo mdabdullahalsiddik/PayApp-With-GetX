@@ -4,13 +4,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
 import 'package:pay/views/authentication/login_view.dart';
 import 'package:pay/widgets/custom_button.dart';
 
 class WelcomeView extends StatelessWidget {
-  const WelcomeView({super.key});
+   WelcomeView({super.key});
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {

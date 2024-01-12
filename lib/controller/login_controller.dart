@@ -20,7 +20,7 @@ class LoginController extends GetxController {
         );
         await FirebaseAllFunction.firestore
             .collection("user")
-            .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+            .doc(FirebaseAllFunction.user)
             .update({
           "token": await FirebaseAllFunction.messaging.getToken(),
         });

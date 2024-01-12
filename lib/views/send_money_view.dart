@@ -3,6 +3,7 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/send_money_controller.dart';
 import 'package:pay/function/data.dart';
 import 'package:pay/function/firebase_function.dart';
@@ -13,6 +14,7 @@ class SendMoneyView extends StatelessWidget {
   SendMoneyView({super.key});
   final SendMoneyController sendMoneyController =
       Get.put(SendMoneyController());
+      final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +37,9 @@ class SendMoneyView extends StatelessWidget {
                   var data = snapshot.data!.data()!;
                   return Padding(
                     padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 15,
-                          ),
+                      horizontal: 10,
+                      vertical: 15,
+                    ),
                     child: Column(
                       children: [
                         Column(
@@ -48,7 +50,8 @@ class SendMoneyView extends StatelessWidget {
                                 width: 50,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: NetworkImage(data["image"].toString()),
+                                    image:
+                                        NetworkImage(data["image"].toString()),
                                     fit: BoxFit.cover,
                                   ),
                                   borderRadius: const BorderRadius.all(
@@ -74,7 +77,8 @@ class SendMoneyView extends StatelessWidget {
                             Form(
                               key: sendMoneyController.forky,
                               child: CustomTextFromField(
-                                controller: sendMoneyController.amountController,
+                                controller:
+                                    sendMoneyController.amountController,
                                 hintText: "Amount",
                                 keyboardType: TextInputType.number,
                                 validator: (p0) {
@@ -86,11 +90,7 @@ class SendMoneyView extends StatelessWidget {
                               ),
                             ),
                             StreamBuilder(
-                              stream: FirebaseAllFunction.firestore
-                                  .collection("user")
-                                  .doc(FirebaseAllFunction.auth.currentUser!.email
-                                      .toString())
-                                  .snapshots(),
+                              stream: FirebaseAllFunction.userCollection.snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   var data1 = snapshot.data!.data()!;

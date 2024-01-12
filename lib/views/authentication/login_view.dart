@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/login_controller.dart';
 
 import 'package:pay/static/all%20colors/all_colors.dart';
@@ -13,6 +14,7 @@ class loginView extends StatelessWidget {
   loginView({super.key});
 
   LoginController loginController = Get.put(LoginController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {

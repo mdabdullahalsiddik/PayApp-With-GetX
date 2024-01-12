@@ -26,7 +26,7 @@ class SendMoneyController extends GetxController {
       int money = int.parse(amountController.text);
       await FirebaseAllFunction.firestore
           .collection("user")
-          .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+          .doc(FirebaseAllFunction.user)
           .get()
           .then((value) {
         senderAmount = value.data()!["balance"];
@@ -45,15 +45,12 @@ class SendMoneyController extends GetxController {
         receiverImage = value.data()!["image"];
       });
       if (money <= senderAmount!) {
-        await FirebaseAllFunction.firestore
-            .collection("user")
-            .doc(receiverMail)
-            .update({
+        await FirebaseAllFunction.firestore.collection("user").doc(receiverMail).update({
           "balance": receiverAmount! + money,
         });
         await FirebaseAllFunction.firestore
             .collection("user")
-            .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+            .doc(FirebaseAllFunction.user)
             .update({
           "balance": senderAmount! - money,
         });
@@ -67,20 +64,19 @@ class SendMoneyController extends GetxController {
             title: "Received Money",
             body: "You just received $money taka from $senderMail");
         await FirebaseAllFunction.firestore.collection("history").add({
-          "sender": FirebaseAllFunction.auth.currentUser!.email.toString(),
+          "sender": FirebaseAllFunction.user,
           "receiver": receiverMail.toString(),
           "amount": money,
           "date": DateTime.now().toString(),
           "sender_image": senderImage,
           "receiver_image": receiverImage,
-           "sender_name": senderName,
+          "sender_name": senderName,
           "receiver_name": receiverName,
-
         });
 
         Get.snackbar("Successful", "Send Money is Successful");
         amountController.clear();
-        Get.offAll(const SuccessView());
+        Get.offAll( SuccessView());
         update();
       } else {
         Get.snackbar("Error", "You don't have enough money");

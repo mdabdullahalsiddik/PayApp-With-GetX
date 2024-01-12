@@ -5,8 +5,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseAllFunction {
   static final FirebaseAuth auth = FirebaseAuth.instance;
+  static final  user = FirebaseAllFunction.auth.currentUser!.email.toString();
+
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
   static final FirebaseStorage storage = FirebaseStorage.instance;
   static final FirebaseMessaging messaging = FirebaseMessaging.instance;
-  
+  static final userCollection = FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(user);
+  static final historyStream =
+      FirebaseAllFunction.firestore.collection("history").snapshots();
 }
