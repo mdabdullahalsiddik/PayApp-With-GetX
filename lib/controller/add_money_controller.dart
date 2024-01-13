@@ -22,13 +22,17 @@ class AddMoneyController extends GetxController {
      try {
         money = int.parse(addMoneyController.text);
      await EasyLoading.show(status: 'loading...');
-      await FirebaseAllFunction.userCollection.get().then((value) {
+      await FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).get().then((value) {
         senderAmount = value.data()!["balance"];
         senderToken = value.data()!["token"];
         senderImage = value.data()!["image"];
         senderName = value.data()!["name"];
       });
-      await FirebaseAllFunction.userCollection.update({
+      await FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).update({
         "balance": money! + senderAmount!,
       });
       await NotificationApi().triggerNotification(

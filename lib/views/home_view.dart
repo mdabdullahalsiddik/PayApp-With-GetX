@@ -30,7 +30,9 @@ class HomeView extends GetView<HomeController> {
         builder: (controller) {
           return Scaffold(
               drawer: StreamBuilder(
-                stream: FirebaseAllFunction.userCollection.snapshots(),
+                stream: FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -48,7 +50,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             accountName: Text(data["name"].toString()),
                             accountEmail: Text(
-                              FirebaseAllFunction.user,
+                              FirebaseAllFunction.auth.currentUser!.email.toString(),
                             ),
                           ),
                           InkWell(
@@ -79,7 +81,9 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
               body: StreamBuilder(
-                stream: FirebaseAllFunction.userCollection.snapshots(),
+                stream: FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -165,9 +169,9 @@ class HomeView extends GetView<HomeController> {
                                 itemBuilder: (context, index) {
                                   var data = snapshot.data!.docs[index];
                                   bool isMeSender = data["sender"] ==
-                                      FirebaseAllFunction.user;
+                                      FirebaseAllFunction.auth.currentUser!.email.toString();
                                   bool isMeReceiver = data["receiver"] ==
-                                      FirebaseAllFunction.user;
+                                      FirebaseAllFunction.auth.currentUser!.email.toString();
                                   return isMeSender || isMeReceiver
                                       ? ListTile(
                                           leading: Container(

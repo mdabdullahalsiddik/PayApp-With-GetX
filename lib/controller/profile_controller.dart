@@ -23,8 +23,7 @@ class ProfileController extends GetxController {
       final tempImage = File(image!.path);
       pickedImage = tempImage;
     } catch (e) {
-      // ignore: avoid_print
-      print(e);
+      Get.snackbar("Error", "$e");
     }
   }
 
@@ -34,7 +33,7 @@ class ProfileController extends GetxController {
       final tempImage = File(image!.path);
       pickedImage = tempImage;
     } catch (e) {
-      print(e);
+     Get.snackbar("Error", "$e");
     }
     update();
   }
@@ -45,7 +44,7 @@ class ProfileController extends GetxController {
     var imagePath = await FirebaseAllFunction.storage
         .ref("user")
         .child(
-          "${FirebaseAllFunction.user.replaceAll('.', '')}_${dataKye.toString()}",
+          "${FirebaseAllFunction.auth.currentUser!.email.toString().replaceAll('.', '')}_${dataKye.toString()}",
         )
         .putFile(pickedImage!);
 
@@ -57,15 +56,16 @@ class ProfileController extends GetxController {
     if (forky.currentState!.validate()) {
       try {
         await EasyLoading.show(status: 'loading...');
+        await sendImage();
         await FirebaseAllFunction.firestore
             .collection("user")
-            .doc(FirebaseAllFunction.user)
+            .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
             .set({
           "name": nameController.text,
           "phone": phoneController.text,
           "nid": nidController.text,
           "birthday": birthController.text,
-          "mail": FirebaseAllFunction.user,
+          "mail": FirebaseAllFunction.auth.currentUser!.email.toString(),
           "image": images,
           "balance": 0,
           "token": await FirebaseAllFunction.messaging.getToken(),

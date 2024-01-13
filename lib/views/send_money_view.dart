@@ -20,7 +20,7 @@ class SendMoneyView extends GetView<SendMoneyController> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed:() =>  sendMoneyController.appBar(),
+          onPressed: () => sendMoneyController.appBar(),
           icon: const Icon(Icons.arrow_back),
         ),
       ),
@@ -87,8 +87,11 @@ class SendMoneyView extends GetView<SendMoneyController> {
                             ),
                           ),
                           StreamBuilder(
-                            stream:
-                                FirebaseAllFunction.userCollection.snapshots(),
+                            stream: FirebaseAllFunction.firestore
+                                .collection("user")
+                                .doc(FirebaseAllFunction.auth.currentUser!.email
+                                    .toString())
+                                .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 var data1 = snapshot.data!.data()!;
@@ -102,7 +105,7 @@ class SendMoneyView extends GetView<SendMoneyController> {
                       ),
                       CustomButton(
                         text: "Send",
-                        onTap:() => sendMoneyController.setSend(),
+                        onTap: () => sendMoneyController.setSend(),
                       )
                     ],
                   ),

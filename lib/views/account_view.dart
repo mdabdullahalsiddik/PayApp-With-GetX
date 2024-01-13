@@ -27,7 +27,9 @@ class AccountView extends GetView<AccountController> {
           height: size.height,
           width: size.width,
           child: StreamBuilder(
-            stream: FirebaseAllFunction.userCollection.snapshots(),
+            stream: FirebaseAllFunction.firestore
+      .collection("user")
+      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var data = snapshot.data!.data()!;
@@ -44,23 +46,23 @@ class AccountView extends GetView<AccountController> {
                         children: [
                           CustomListTile(
                             icon: Icons.person,
-                            text: data["name"],
+                            text: data["name"] ?? "",
                           ),
                           CustomListTile(
                             icon: Icons.mail,
-                            text: data["mail"],
+                            text: data["mail"] ?? "",
                           ),
                           CustomListTile(
                             icon: Icons.phone,
-                            text: data["phone"],
+                            text: data["phone"] ?? "",
                           ),
                           CustomListTile(
                             icon: Icons.credit_card_sharp,
-                            text: data["nid"],
+                            text: data["nid"] ?? "",
                           ),
                           CustomListTile(
                             icon: Icons.date_range,
-                            text: data["birthday"],
+                            text: data["birthday"] ?? "",
                           ),
                           GetBuilder<AccountController>(
                             builder: (controller) {

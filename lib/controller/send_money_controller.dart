@@ -35,7 +35,7 @@ class SendMoneyController extends GetxController {
 
         await FirebaseAllFunction.firestore
             .collection("user")
-            .doc(FirebaseAllFunction.user)
+            .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
             .get()
             .then((value) {
           senderAmount = value.data()!["balance"];
@@ -71,7 +71,7 @@ class SendMoneyController extends GetxController {
               title: "Received Money",
               body: "You just received $money taka from $senderMail");
           await FirebaseAllFunction.firestore.collection("history").add({
-            "sender": FirebaseAllFunction.user,
+            "sender": FirebaseAllFunction.auth.currentUser!.email.toString(),
             "receiver": receiverMail.toString(),
             "amount": money,
             "date": DateTime.now().toString(),
@@ -82,7 +82,7 @@ class SendMoneyController extends GetxController {
           });
           await FirebaseAllFunction.firestore
               .collection("user")
-              .doc(FirebaseAllFunction.user)
+              .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
               .update({
             "balance": senderAmount! - money,
           });
