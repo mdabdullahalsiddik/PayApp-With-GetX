@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pay/firebase_options.dart';
 import 'package:pay/services%20/notification_services%20.dart';
-import 'package:pay/static/all%20colors/all_colors.dart';
+import 'package:pay/services%20/theme_service.dart';
 import 'package:pay/views/welcome_views.dart/splash_view.dart';
 
 Future FirebasePushNotification() async {
@@ -54,6 +55,7 @@ void main() async {
   );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebasePushNotification();
+  await GetStorage.init();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   NotificationServices().initNotification();
 
@@ -67,10 +69,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: AllColors.primaryColor,
-      ),
-      home:  SplashView(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeService().getThemeMode(),
+      home: SplashView(),
       builder: EasyLoading.init(),
     );
   }

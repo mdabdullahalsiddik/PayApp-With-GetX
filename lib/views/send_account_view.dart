@@ -7,11 +7,11 @@ import 'package:pay/controller/send_account_controller.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
-class SendAccountView extends StatelessWidget {
+class SendAccountView extends GetView<SendAccountController> {
   SendAccountView({super.key});
   final SendAccountController sendAccountController =
       Get.put(SendAccountController());
-      final InternetController internetController = Get.put(InternetController());
+  final InternetController internetController = Get.put(InternetController());
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,7 @@ class SendAccountView extends StatelessWidget {
                 ),
                 CustomButton(
                   text: "Next",
-                  onTap: () {
-                    sendAccountController.setData();
-                  },
+                  onTap:() => sendAccountController.setData(),
                 )
               ],
             ),

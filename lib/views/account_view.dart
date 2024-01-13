@@ -9,7 +9,7 @@ import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/widgets/custom_list_tile.dart';
 
-class AccountView extends StatelessWidget {
+class AccountView extends GetView<AccountController> {
   AccountView({super.key});
   final AccountController accountController = Get.put(AccountController());
   final InternetController internetController = Get.put(InternetController());
@@ -65,9 +65,7 @@ class AccountView extends StatelessWidget {
                           GetBuilder<AccountController>(
                             builder: (controller) {
                               return InkWell(
-                                onTap: () {
-                                  accountController.setTheme();
-                                },
+                                onTap: () => accountController.setTheme(),
                                 child: CustomListTile(
                                   icon: Icons.dark_mode_outlined,
                                   text: "Dark",
@@ -83,7 +81,9 @@ class AccountView extends StatelessWidget {
               } else if (snapshot.hasError) {
                 print(snapshot.hasError);
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             },
           ),
         ),

@@ -9,7 +9,7 @@ class SplashController extends GetxController {
       FirebaseAllFunction.auth.currentUser == null
           ? Get.offAll( WelcomeView())
           : Get.offAll(
-              const BottomNavigatorView(),
+              BottomNavigatorView(),
             );
     });
     update();

@@ -13,8 +13,6 @@ class InternetController extends GetxController {
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       Get.back();
-
-      
     } else {
       Get.defaultDialog(
         title: "No Internet",

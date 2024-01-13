@@ -3,31 +3,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/internet_controller.dart';
+import 'package:pay/controller/success_controller.dart';
 import 'package:pay/function/data.dart';
 import 'package:pay/function/firebase_function.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
-import 'package:pay/views/navigator/bottom_navigator.dart';
 import 'package:pay/widgets/custom_button.dart';
 
-class SuccessView extends StatelessWidget {
-   SuccessView({super.key});
+class SuccessView extends GetView<SuccessController> {
+  SuccessView({super.key});
   final InternetController internetController = Get.put(InternetController());
+  final SuccessController successController = Get.put(SuccessController());
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.sizeOf(context);
     return WillPopScope(
       onWillPop: () async {
-        Get.to(const BottomNavigatorView());
+        successController.back();
 
         return false;
       },
       child: Scaffold(
         body: StreamBuilder(
-          stream:
-              FirebaseAllFunction.firestore.collection("user").doc(receiverMail).snapshots(),
+          stream: FirebaseAllFunction.firestore
+              .collection("user")
+              .doc(receiverMail)
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var data = snapshot.data!.data()!;
@@ -46,6 +49,7 @@ class SuccessView extends StatelessWidget {
                         const Icon(
                           Icons.check_circle_outline,
                           color: AllColors.greenColor,
+                          size: 20,
                         ),
                         const Text(
                           "Successfully Send",
@@ -94,9 +98,7 @@ class SuccessView extends StatelessWidget {
                         ),
                         CustomButton(
                           text: "Done",
-                          onTap: () {
-                            Get.to(const BottomNavigatorView());
-                          },
+                          onTap:() => successController.back(),
                         )
                       ],
                     ),
@@ -104,7 +106,9 @@ class SuccessView extends StatelessWidget {
                 ),
               );
             }
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       ),

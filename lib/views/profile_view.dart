@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pay/controller/internet_controller.dart';
@@ -21,17 +19,7 @@ class ProfileView extends GetView<ProfileController> {
 
     return WillPopScope(
       onWillPop: () async {
-        Get.defaultDialog(
-          title: "Exit",
-          titleStyle: const TextStyle(color: Colors.red),
-          middleText: "Are you sure?",
-          onConfirm: () {
-            exit(0);
-          },
-          onCancel: () {
-            Navigator.pop(context);
-          },
-        );
+        profileController.dialog(context);
 
         return false;
       },
@@ -116,73 +104,74 @@ class ProfileView extends GetView<ProfileController> {
                         ],
                       ),
                       Form(
-                          key: profileController.forky,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              CustomTextFromField(
-                                controller: profileController.nameController,
-                                hintText: "Enter Full name",
-                                validator: (p0) {
-                                  if (p0!.isEmpty) {
-                                    return "Name can't be empty";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              CustomTextFromField(
-                                controller: profileController.phoneController,
-                                hintText: "Enter phone number",
-                                validator: (p0) {
-                                  if (p0!.isEmpty) {
-                                    return "Phone number can't be empty";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              CustomTextFromField(
-                                controller: profileController.nidController,
-                                hintText: "Enter nid number",
-                                validator: (p0) {
-                                  if (p0!.isEmpty) {
-                                    return "nid number can't be empty";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              CustomTextFromField(
-                                controller: profileController.birthController,
-                                hintText: "Enter birth date (yyyy-mm-dd)",
-                                validator: (p0) {
-                                  if (p0!.isEmpty) {
-                                    return "Birth date (yyyy-mm-dd) can't be empty";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: size.height * .01,
-                              ),
-                              CustomButton(
-                                text: "Save",
-                                onTap: () async {
-                                  await profileController.sendImage();
-                                  profileController.setProfile();
-                                },
-                              ),
-                            ],
-                          ))
+                        key: profileController.forky,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            CustomTextFromField(
+                              controller: profileController.nameController,
+                              hintText: "Enter Full name",
+                              validator: (p0) {
+                                if (p0!.isEmpty) {
+                                  return "Name can't be empty";
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            CustomTextFromField(
+                              controller: profileController.phoneController,
+                              hintText: "Enter phone number",
+                              validator: (p0) {
+                                if (p0!.isEmpty) {
+                                  return "Phone number can't be empty";
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            CustomTextFromField(
+                              controller: profileController.nidController,
+                              hintText: "Enter nid number",
+                              validator: (p0) {
+                                if (p0!.isEmpty) {
+                                  return "nid number can't be empty";
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            CustomTextFromField(
+                              controller: profileController.birthController,
+                              hintText: "Enter birth date (yyyy-mm-dd)",
+                              validator: (p0) {
+                                if (p0!.isEmpty) {
+                                  return "Birth date (yyyy-mm-dd) can't be empty";
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: size.height * .01,
+                            ),
+                            CustomButton(
+                              text: "Save",
+                              onTap: () async {
+                                await profileController.sendImage();
+                                profileController.setProfile();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

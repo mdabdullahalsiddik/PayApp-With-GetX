@@ -7,9 +7,9 @@ import 'package:pay/controller/splash_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 
 class SplashView extends GetView<SplashController> {
-   SplashView({super.key});
-  final SplashController splashController = Get.put(SplashController());
+  SplashView({super.key});
   final InternetController internetController = Get.put(InternetController());
+  final SplashController splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {

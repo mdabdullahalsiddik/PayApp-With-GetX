@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 import 'package:pay/function/firebase_function.dart';
+import 'package:pay/views/authentication/register_view.dart';
 import 'package:pay/views/navigator/bottom_navigator.dart';
 
 class LoginController extends GetxController {
@@ -14,6 +13,7 @@ class LoginController extends GetxController {
   setTextField() async {
     if (forky.currentState!.validate()) {
       try {
+        
         await FirebaseAllFunction.auth.signInWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
@@ -24,7 +24,7 @@ class LoginController extends GetxController {
             .update({
           "token": await FirebaseAllFunction.messaging.getToken(),
         });
-        Get.offAll(const BottomNavigatorView());
+        Get.offAll(BottomNavigatorView());
         Get.snackbar("Successful", "Login is Successful");
       } on FirebaseAuthException catch (e) {
         Get.snackbar("Error", e.message.toString());
@@ -39,6 +39,11 @@ class LoginController extends GetxController {
   setPasswordValidator() {
     passwordValidator = !passwordValidator;
 
+    update();
+  }
+
+  route() {
+    Get.to(RegisterView());
     update();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -18,7 +19,9 @@ class AddMoneyController extends GetxController {
   String? senderName;
   addMoney() async {
     if (forky.currentState!.validate()) {
-      money = int.parse(addMoneyController.text);
+     try {
+        money = int.parse(addMoneyController.text);
+     await EasyLoading.show(status: 'loading...');
       await FirebaseAllFunction.userCollection.get().then((value) {
         senderAmount = value.data()!["balance"];
         senderToken = value.data()!["token"];
@@ -44,8 +47,17 @@ class AddMoneyController extends GetxController {
       });
       Get.snackbar("Successful", "Add Money is Successful");
       addMoneyController.clear();
-      Get.offAll(const BottomNavigatorView());
+      Get.offAll(BottomNavigatorView());
+      EasyLoading.dismiss();
+     } catch (e) {
+       Get.snackbar("Error", "$e");
+     }
     }
+    update();
+  }
+
+  appBarRoute() {
+    Get.back();
     update();
   }
 }

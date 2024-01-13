@@ -17,26 +17,29 @@ class SendAccountController extends GetxController {
 
   setData() async {
     if (forky.currentState!.validate()) {
-      await FirebaseAllFunction.firestore
-          .collection("user")
-          .doc(mailController.text)
-          .get()
-          .then((value) {
-        mail = value.data()!["mail"].toString();
-      });
+      try {
+        await FirebaseAllFunction.firestore
+            .collection("user")
+            .doc(mailController.text)
+            .get()
+            .then((value) {
+          mail = value.data()!["mail"].toString();
+        });
 
-      if (mailController.text != FirebaseAllFunction.user) {
-        if (mailController.text == mail) {
-          receiverMail = mail;
-          senderMail = FirebaseAllFunction.user;
-          Get.to(SendMoneyView());
-          mailController.clear();
+        if (mailController.text != FirebaseAllFunction.user) {
+          if (mailController.text == mail) {
+            receiverMail = mail;
+            senderMail = FirebaseAllFunction.user;
+            Get.to(SendMoneyView());
+            mailController.clear();
+          }
+        } else {
+          Get.snackbar("Error", "You can't send account to your own account");
         }
-      } else {
-        Get.snackbar("Error", "You can't send account to your own account");
+      } catch (e) {
+        Get.snackbar("Error", "$e");
       }
-
-      update();
     }
+    update();
   }
 }

@@ -1,11 +1,9 @@
 // ignore_for_file: avoid_print, deprecated_member_use
 
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/home_controller.dart';
 import 'package:pay/controller/internet_controller.dart';
@@ -13,7 +11,7 @@ import 'package:pay/function/firebase_function.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/widgets/custom_manu_bottom.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   HomeView({super.key});
 
   final homeController = Get.put(HomeController());
@@ -24,17 +22,7 @@ class HomeView extends StatelessWidget {
     var size = MediaQuery.sizeOf(context);
     return WillPopScope(
       onWillPop: () async {
-        Get.defaultDialog(
-          title: "Exit",
-          titleStyle: const TextStyle(color: Colors.red),
-          middleText: "Are you sure?",
-          onConfirm: () {
-            exit(0);
-          },
-          onCancel: () {
-            Navigator.pop(context);
-          },
-        );
+        homeController.dialog(context);
 
         return false;
       },
@@ -42,8 +30,7 @@ class HomeView extends StatelessWidget {
         builder: (controller) {
           return Scaffold(
               drawer: StreamBuilder(
-                stream: FirebaseAllFunction.userCollection
-                    .snapshots(),
+                stream: FirebaseAllFunction.userCollection.snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -65,19 +52,7 @@ class HomeView extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
-                              Get.defaultDialog(
-                                title: "Logout",
-                                titleStyle: const TextStyle(color: Colors.red),
-                                middleText: "Are you sure?",
-                                onConfirm: () {
-                                  homeController.setLogout();
-                                },
-                                onCancel: () {
-                                  Get.back();
-                                },
-                              );
-                            },
+                            onTap: () => homeController.logoutDialog(context),
                             child: const ListTile(
                               leading: Icon(
                                 Icons.logout,

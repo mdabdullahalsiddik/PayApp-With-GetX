@@ -4,12 +4,11 @@ import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/controller/register_controller.dart';
 import 'package:pay/static/all%20colors/all_colors.dart';
 import 'package:pay/static/all%20texts/all_texts.dart';
-import 'package:pay/views/authentication/login_view.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
 // ignore: must_be_immutable
-class RegisterView extends StatelessWidget {
+class RegisterView extends GetView<RegisterController> {
   RegisterView({super.key});
 
   final registerController = Get.put(RegisterController());
@@ -101,9 +100,7 @@ class RegisterView extends StatelessWidget {
                           ),
                           CustomButton(
                             text: "Register",
-                            onTap: () {
-                              registerController.setTextField();
-                            },
+                            onTap: () => registerController.setTextField(),
                           ),
                         ],
                       ),
@@ -119,9 +116,7 @@ class RegisterView extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {
-                              Get.to(loginView());
-                            },
+                            onTap: () => registerController.route(),
                             child: const Text(
                               "Login",
                               style: TextStyle(

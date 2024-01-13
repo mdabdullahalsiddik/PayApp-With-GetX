@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pay/controller/add_money_controller.dart';
 import 'package:pay/controller/internet_controller.dart';
 import 'package:pay/widgets/custom_button.dart';
 import 'package:pay/widgets/custom_textfromfield.dart';
 
-class AddMoneyView extends StatelessWidget {
+class AddMoneyView extends GetView<AddMoneyController> {
   AddMoneyView({super.key});
   final AddMoneyController addMoneyController = Get.put(AddMoneyController());
   final InternetController internetController = Get.put(InternetController());
@@ -18,7 +17,7 @@ class AddMoneyView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () => addMoneyController.appBarRoute(),
           icon: const Icon(Icons.arrow_back),
         ),
       ),
@@ -48,9 +47,7 @@ class AddMoneyView extends StatelessWidget {
                 ),
                 CustomButton(
                   text: "Add Money",
-                  onTap: () {
-                    addMoneyController.addMoney();
-                  },
+                  onTap:() => addMoneyController.addMoney(),
                 )
               ],
             ),
