@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, deprecated_member_use
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -31,8 +30,9 @@ class HomeView extends GetView<HomeController> {
           return Scaffold(
               drawer: StreamBuilder(
                 stream: FirebaseAllFunction.firestore
-      .collection("user")
-      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
+                    .collection("user")
+                    .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -50,7 +50,8 @@ class HomeView extends GetView<HomeController> {
                             ),
                             accountName: Text(data["name"].toString()),
                             accountEmail: Text(
-                              FirebaseAllFunction.auth.currentUser!.email.toString(),
+                              FirebaseAllFunction.auth.currentUser!.email
+                                  .toString(),
                             ),
                           ),
                           InkWell(
@@ -82,8 +83,9 @@ class HomeView extends GetView<HomeController> {
               ),
               body: StreamBuilder(
                 stream: FirebaseAllFunction.firestore
-      .collection("user")
-      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
+                    .collection("user")
+                    .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = snapshot.data!.data()!;
@@ -169,9 +171,13 @@ class HomeView extends GetView<HomeController> {
                                 itemBuilder: (context, index) {
                                   var data = snapshot.data!.docs[index];
                                   bool isMeSender = data["sender"] ==
-                                      FirebaseAllFunction.auth.currentUser!.email.toString();
+                                      FirebaseAllFunction
+                                          .auth.currentUser!.email
+                                          .toString();
                                   bool isMeReceiver = data["receiver"] ==
-                                      FirebaseAllFunction.auth.currentUser!.email.toString();
+                                      FirebaseAllFunction
+                                          .auth.currentUser!.email
+                                          .toString();
                                   return isMeSender || isMeReceiver
                                       ? ListTile(
                                           leading: Container(

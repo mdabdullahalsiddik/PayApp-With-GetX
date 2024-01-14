@@ -33,7 +33,7 @@ class ProfileController extends GetxController {
       final tempImage = File(image!.path);
       pickedImage = tempImage;
     } catch (e) {
-     Get.snackbar("Error", "$e");
+      Get.snackbar("Error", "$e");
     }
     update();
   }
@@ -66,7 +66,7 @@ class ProfileController extends GetxController {
           "nid": nidController.text,
           "birthday": birthController.text,
           "mail": FirebaseAllFunction.auth.currentUser!.email.toString(),
-          "image": images,
+          "image": images ?? const AssetImage("assets/images/profile.png"),
           "balance": 0,
           "token": await FirebaseAllFunction.messaging.getToken(),
         });
@@ -79,7 +79,8 @@ class ProfileController extends GetxController {
     }
     update();
   }
-   dialog(context) {
+
+  dialog(context) {
     Get.defaultDialog(
       title: "Exit",
       titleStyle: const TextStyle(color: Colors.red),

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_cast
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/get_core.dart';
@@ -28,8 +28,9 @@ class AccountView extends GetView<AccountController> {
           width: size.width,
           child: StreamBuilder(
             stream: FirebaseAllFunction.firestore
-      .collection("user")
-      .doc(FirebaseAllFunction.auth.currentUser!.email.toString()).snapshots(),
+                .collection("user")
+                .doc(FirebaseAllFunction.auth.currentUser!.email.toString())
+                .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 var data = snapshot.data!.data()!;
@@ -40,29 +41,31 @@ class AccountView extends GetView<AccountController> {
                     children: [
                       CircleAvatar(
                         radius: 50,
-                        backgroundImage: NetworkImage(data["image"].toString()),
+                        backgroundImage: NetworkImage(
+                          data["image"].toString(),
+                        ),
                       ),
                       Column(
                         children: [
                           CustomListTile(
                             icon: Icons.person,
-                            text: data["name"] ?? "",
+                            text: data["name"] ?? "User",
                           ),
                           CustomListTile(
                             icon: Icons.mail,
-                            text: data["mail"] ?? "",
+                            text: data["mail"] ?? "mai@gmail.com",
                           ),
                           CustomListTile(
                             icon: Icons.phone,
-                            text: data["phone"] ?? "",
+                            text: data["phone"] ?? "8801XXXXXXXX",
                           ),
                           CustomListTile(
                             icon: Icons.credit_card_sharp,
-                            text: data["nid"] ?? "",
+                            text: data["nid"] ?? "XXXXXXXXXXXXXX",
                           ),
                           CustomListTile(
                             icon: Icons.date_range,
-                            text: data["birthday"] ?? "",
+                            text: data["birthday"] ?? "2000-01-01",
                           ),
                           GetBuilder<AccountController>(
                             builder: (controller) {
